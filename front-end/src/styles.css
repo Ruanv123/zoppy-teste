@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f9f9fa;
+  --color-sidebar: #fdfdfd;
+  --color-border: #e3e7ec;
+  --color-table: #f2f5f9;
+  --color-primary: #7b3dff;
+  --default-font-family: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

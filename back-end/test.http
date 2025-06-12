@@ -1,0 +1,26 @@
+POST http://localhost:3000/api/clientes HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Pedro sampaio",
+    "email": "pedro.sampaio@example.com",
+    "telefone": "11987654321",
+    "endereco": "Rua das Flores, 123"
+}
+
+###
+
+GET http://localhost:3000/api/clientes HTTP/1.1
+content-type: application/json
+
+{
+
+}
+
+###
+GET http://localhost:3000/api/clientes/1 HTTP/1.1
+content-type: application/json
+
+{
+    
+}
