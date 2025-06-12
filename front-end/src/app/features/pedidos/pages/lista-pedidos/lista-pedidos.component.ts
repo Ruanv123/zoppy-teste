@@ -1,8 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-lista-pedidos',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, HlmButtonDirective],
   templateUrl: './lista-pedidos.component.html',
 })
 export class ListaPedidosComponent {}

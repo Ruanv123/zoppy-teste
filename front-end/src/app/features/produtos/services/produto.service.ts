@@ -14,4 +14,10 @@ export class ProdutoService {
   getProdutos(): Observable<Produto[]> {
     return this.httpClient.get<Produto[]>(`${this.baseUrl}/api/produtos`);
   }
+
+  deleteProduto(produtoId: number): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.baseUrl}/api/produtos/${produtoId}`
+    );
+  }
 }

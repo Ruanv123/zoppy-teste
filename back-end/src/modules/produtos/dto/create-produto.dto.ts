@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProdutoDto {
   @IsString()
@@ -13,7 +13,11 @@ export class CreateProdutoDto {
   @IsNotEmpty()
   telefone: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  endereco: string;
+  preco: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  estoque: number;
 }

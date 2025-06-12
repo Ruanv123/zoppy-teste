@@ -28,14 +28,21 @@ export class ProdutosService {
     return produto;
   }
 
-  async update(
-    id: number,
-    updateProdutoDto: UpdateProdutoDto,
-  ): Promise<string> {
-    return `This action updates a #${id} produto`;
+  async update(id: number, updateProdutoDto: UpdateProdutoDto): Promise<void> {
+    const [updatedRows] = await this.produtoModel.update(updateProdutoDto, {
+      where: { id },
+    });
+
+    if (updatedRows === 0) {
+      throw new NotFoundException(
+        `Produto com ID ${id} não encontrado para atualização.`,
+      );
+    }
   }
 
-  async remove(id: number): Promise<string> {
-    return `This action removes a #${id} produto`;
+  async remove(id: number): Promise<void> {
+    const produto = await this.findOne(id);
+
+    await produto.destroy();
   }
 }

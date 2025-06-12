@@ -1,31 +1,54 @@
 <div class="border border-border rounded-md p-5 bg-sidebar">
-  <h1 class="text-lg font-semibold">Listagem de Produtos</h1>
+  <div class="flex items-center justify-between mb-5">
+    <h1 class="text-lg font-semibold">Listagem de Produtos</h1>
 
-  <div>
-    <!-- filtros -->
+    <button hlmBtn>Novo Produto</button>
   </div>
 
-  <table class="w-full mt-5 overflow-hidden rounded-md">
-    <thead class="p-2 rounded-md bg-table">
+  <div class="flex items-center">
+    <input class="w-80" hlmInput placeholder="Email" type="email" />
+    <button class="ml-2" hlmBtn variant="secondary" size="icon">
+      <ng-icon hlm name="lucideSearch" size="sm" class="mr-2 animate-spin" />
+    </button>
+  </div>
+
+  <table
+    class="w-full mt-10 overflow-hidden rounded-md shadow-md border border-gray-200"
+  >
+    <thead class="bg-table uppercase text-sm font-semibold">
       <tr>
-        <th class="text-base">Nome</th>
-        <th class="text-base">Descrição</th>
-        <th class="text-base">Preço</th>
-        <th class="text-base">Estoque</th>
-        <th class="text-base">Ativo</th>
-        <th class="text-base">Ações</th>
+        <th class="px-4 py-3 text-left">Nome</th>
+        <th class="px-4 py-3 text-left">Descrição</th>
+        <th class="px-4 py-3 text-left">Preço</th>
+        <th class="px-4 py-3 text-left">Estoque</th>
+        <th class="px-4 py-3 text-left">Ativo</th>
+        <th class="px-4 py-3 text-left">Ações</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let produto of produtos">
-        <td>{{ produto.nome }}</td>
-        <td>{{ produto.descricao }}</td>
-        <td>{{ produto.preco }}</td>
-        <td>{{ produto.estoque }}</td>
-        <td>{{ produto.ativo ? "Ativo" : "Inativo" }}</td>
-        <td>
-          <!-- <button (click)="editarProduto(produto)">Editar</button> -->
-          <!-- <button (click)="deletarProduto(produto)">Excluir</button> -->
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr
+        *ngFor="let produto of produtos"
+        class="hover:bg-gray-50 transition-colors"
+      >
+        <td class="px-4 py-3 text-sm text-gray-700">{{ produto.nome }}</td>
+        <td class="px-4 py-3 text-sm text-gray-700">{{ produto.descricao }}</td>
+        <td class="px-4 py-3 text-sm text-gray-700">{{ produto.preco }}</td>
+        <td class="px-4 py-3 text-sm text-gray-700">{{ produto.estoque }}</td>
+        <td class="px-4 py-3 text-center text-sm text-gray-700">
+          {{ produto.ativo ? "Ativo" : "Inativo" }}
+        </td>
+        <td class="px-4 py-3 text-center">
+          <button
+            class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-2"
+          >
+            Editar
+          </button>
+          <button
+            class="text-red-600 hover:text-red-800 text-sm font-medium"
+            (click)="deletarProdutos(produto.id)"
+          >
+            Excluir
+          </button>
         </td>
       </tr>
     </tbody>

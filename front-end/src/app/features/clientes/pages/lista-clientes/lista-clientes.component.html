@@ -2,11 +2,7 @@
   <div class="flex items-center justify-between mb-5">
     <h1 class="text-lg font-semibold">Listagem de Clientes</h1>
 
-    <button
-      class="px-5 py-2 rounded-md bg-primary text-white text-sm flex items-center justify-center font-bold"
-    >
-      + Cliente
-    </button>
+    <button hlmBtn>Novo Cliente</button>
   </div>
 
   <div>
@@ -37,12 +33,21 @@
           {{ cliente.pedidos?.length || 0 }}
         </td>
         <td class="px-4 py-3 text-center">
+          <a
+            class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-2"
+            [routerLink]="['/clientes', cliente.id]"
+          >
+            Detalhes
+          </a>
           <button
             class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-2"
           >
             Editar
           </button>
-          <button class="text-red-600 hover:text-red-800 text-sm font-medium">
+          <button
+            class="text-red-600 hover:text-red-800 text-sm font-medium"
+            (click)="deletarCliente(cliente.id)"
+          >
             Excluir
           </button>
         </td>
