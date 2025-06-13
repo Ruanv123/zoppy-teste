@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,22 +12,29 @@ import { ProdutosModule } from './modules/produtos/produtos.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: 'db.cxndizrhymkigacomzyg.supabase.co',
-      port: 5432,
-      username: 'postgres',
-      password: 'q2YGaLlodArqVtsO',
-      database: 'postgres',
-      models: [Cliente, Produto],
-      autoLoadModels: true,
-      synchronize: true,
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        dialect: 'postgres',
+        host: configService.get<string>('DB_HOST'),
+        port: parseInt(configService.get<string>('DB_PORT'), 10),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
+        models: [Cliente, Produto],
+        autoLoadModels: true,
+        synchronize: true,
+        dialectOptions:
+          configService.get<string>('DB_SSL') === 'true'
+            ? {
+                ssl: {
+                  require: true,
+                  rejectUnauthorized: false,
+                },
+              }
+            : {},
+      }),
     }),
     ProdutosModule,
     ClientesModule,
