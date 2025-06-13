@@ -26,6 +26,10 @@ cd back-end
 npm install
 ```
 
+### clone o arquivo .env.example
+
+Clone o arquivo `.env.example` e retire o `.example`
+
 ### Executando a API
 
 Para modo de desenvolvimento com recarregamento automático:
