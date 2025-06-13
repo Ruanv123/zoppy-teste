@@ -1,12 +1,4 @@
-import {
-  Column,
-  DataType,
-  IsEmail,
-  Table,
-  Model,
-  HasMany,
-} from 'sequelize-typescript';
-import { Pedido } from 'src/modules/pedidos/entities/pedido.entity';
+import { Column, DataType, IsEmail, Model, Table } from 'sequelize-typescript';
 
 @Table({ tableName: 'clientes' })
 export class Cliente extends Model {
@@ -25,7 +17,4 @@ export class Cliente extends Model {
 
   @Column({ type: DataType.TEXT })
   endereco: string;
-
-  @HasMany(() => Pedido)
-  pedidos: Pedido[];
 }

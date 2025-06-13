@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
@@ -25,8 +26,8 @@ export class ClientesController {
   }
 
   @Get()
-  async findAll(): Promise<Cliente[]> {
-    return this.clientesService.findAll();
+  async findAll(@Query('search') search?: string): Promise<Cliente[]> {
+    return this.clientesService.findAll(search);
   }
 
   @Get(':id')

@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProdutosService } from './produtos.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Produtos')
 @Controller('produtos')
 export class ProdutosController {
   constructor(private readonly produtosService: ProdutosService) {}
@@ -21,8 +24,8 @@ export class ProdutosController {
   }
 
   @Get()
-  findAll() {
-    return this.produtosService.findAll();
+  findAll(@Query('search') search?: string) {
+    return this.produtosService.findAll(search);
   }
 
   @Get(':id')

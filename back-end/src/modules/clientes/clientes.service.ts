@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { Cliente } from './entities/cliente.entity';
 import { CreateClienteDto } from './dto/create-cliente.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ClientesService {
@@ -12,8 +13,9 @@ export class ClientesService {
     return this.clienteModel.create({ ...createClienteDto });
   }
 
-  async findAll(): Promise<Cliente[]> {
-    return this.clienteModel.findAll();
+  async findAll(search?: string): Promise<Cliente[]> {
+    const where = search ? { nome: { [Op.like]: `%${search}%` } } : {};
+    return this.clienteModel.findAll({ where });
   }
 
   async findOne(id: number): Promise<Cliente> {

@@ -3,5 +3,5 @@ export interface Cliente {
   nome: string;
   email: string;
   telefone: string;
-  pedidos?: any[];
+  endereco: string;
 }

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { Produto } from './entities/produto.entity';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ProdutosService {
@@ -12,8 +13,9 @@ export class ProdutosService {
     return this.produtoModel.create({ ...createProdutoDto });
   }
 
-  async findAll(): Promise<Produto[]> {
-    const produtos = await this.produtoModel.findAll();
+  async findAll(search?: string): Promise<Produto[]> {
+    const where = search ? { nome: { [Op.like]: `%${search}%` } } : {};
+    const produtos = await this.produtoModel.findAll({ where });
 
     return produtos;
   }

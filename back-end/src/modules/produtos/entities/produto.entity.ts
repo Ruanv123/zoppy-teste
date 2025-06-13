@@ -1,12 +1,4 @@
-import {
-  BelongsToMany,
-  Column,
-  DataType,
-  Model,
-  Table,
-} from 'sequelize-typescript';
-import { ItemPedido } from 'src/modules/pedidos/entities/itemPedido';
-import { Pedido } from 'src/modules/pedidos/entities/pedido.entity';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table({ tableName: 'produtos' })
 export class Produto extends Model {
@@ -27,7 +19,4 @@ export class Produto extends Model {
 
   @Column({ type: DataType.BOOLEAN, defaultValue: true })
   ativo: boolean;
-
-  @BelongsToMany(() => Pedido, () => ItemPedido)
-  pedidos: Pedido[];
 }

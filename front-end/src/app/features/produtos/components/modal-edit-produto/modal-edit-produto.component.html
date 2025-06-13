@@ -1,0 +1,58 @@
+<hlm-dialog>
+  <button id="edit-produto" brnDialogTrigger hlmBtn size="sm" variant="link">
+    Editar
+  </button>
+  <hlm-dialog-content
+    class="sm:max-w-[425px] md:min-w-[550px]"
+    *brnDialogContent="let ctx"
+  >
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Editar Produto</h3>
+      <p hlmDialogDescription>Insira os dados para edição do produto.</p>
+    </hlm-dialog-header>
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event, ctx)">
+      <div class="py-4 space-y-3 w-full">
+        <div class="flex flex-col gap-2">
+          <label hlmLabel for="nome" class="text-left">Nome</label>
+          <input hlmInput id="nome" class="w-full" formControlName="nome" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label hlmLabel for="descricao" class="text-left">Descrição</label>
+          <input
+            hlmInput
+            id="descricao"
+            class="w-full"
+            formControlName="descricao"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label hlmLabel for="preco" class="text-left">Preço</label>
+          <input
+            hlmInput
+            id="preco"
+            class="w-full"
+            type="number"
+            step="0.01"
+            formControlName="preco"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label hlmLabel for="estoque" class="text-left">Estoque</label>
+          <input
+            hlmInput
+            id="estoque"
+            type="number"
+            class="w-full"
+            formControlName="estoque"
+          />
+        </div>
+      </div>
+      <hlm-dialog-footer>
+        <button hlmBtn type="submit">Salvar alterações</button>
+      </hlm-dialog-footer>
+    </form>
+  </hlm-dialog-content>
+</hlm-dialog>

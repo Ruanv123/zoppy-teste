@@ -27,6 +27,21 @@
       ],
       "@spartan-ng/helm/label": [
         ".\\src/app/shared/ui-label-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/sonner": [
+        ".\\src/app/shared/ui-sonner-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/icon": [
+        ".\\src/app/shared/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/pagination": [
+        ".\\src/app/shared/ui-pagination-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/select": [
+        ".\\src/app/shared/ui-select-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/table": [
+        ".\\src/app/shared/ui-table-helm/src/index.ts"
       ]
     }
   },

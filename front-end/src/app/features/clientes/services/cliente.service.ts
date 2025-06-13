@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Cliente } from '../models/cliente';
 import { environment } from '../../../../environments/environment';
@@ -11,8 +11,15 @@ export class ClienteService {
   private readonly httpClient = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
 
-  getClientes(): Observable<Cliente[]> {
-    return this.httpClient.get<Cliente[]>(`${this.baseUrl}/api/clientes`);
+  getClientes(filtro?: string): Observable<Cliente[]> {
+    let params = new HttpParams();
+
+    if (filtro) {
+      params = params.set('search', filtro);
+    }
+    return this.httpClient.get<Cliente[]>(`${this.baseUrl}/api/clientes`, {
+      params: params,
+    });
   }
 
   getCliente(id: number): Observable<Cliente> {
@@ -26,8 +33,10 @@ export class ClienteService {
     );
   }
 
-  updateCliente(cliente: Cliente): Observable<Cliente> {
-    return this.httpClient.put<Cliente>(
+  updateCliente(
+    cliente: Partial<Cliente> & { id: number }
+  ): Observable<Cliente> {
+    return this.httpClient.patch<Cliente>(
       `${this.baseUrl}/api/clientes/${cliente.id}`,
       cliente
     );

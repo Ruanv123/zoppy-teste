@@ -9,10 +9,6 @@ export class CreateProdutoDto {
   @IsOptional()
   descricao: string;
 
-  @IsString()
-  @IsNotEmpty()
-  telefone: string;
-
   @IsNumber()
   @IsNotEmpty()
   preco: number;
