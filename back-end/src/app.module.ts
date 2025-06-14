@@ -11,6 +11,7 @@ import { ProdutosModule } from './modules/produtos/produtos.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],

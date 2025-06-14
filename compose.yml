@@ -1,23 +1,56 @@
 services:
   postgres:
     image: postgres:15
-    container_name: postgres_container
+    container_name: zoppy-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: zoppy
     networks:
-      - pgnetwork
+      -  zoppy-network
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+  
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: zoppy-backend
+    environment:
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_NAME: zoppy
+      DB_SSL: "false"
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      -  zoppy-network
+    depends_on:
+      - postgres
 
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: zoppy-frontend
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+    networks:
+      -  zoppy-network
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
 
 networks:
-  pgnetwork:
+  zoppy-network:
     driver: bridge

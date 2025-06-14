@@ -1,6 +1,8 @@
 # Documentação da Aplicação Zoppy
 
-Este documento fornece instruções sobre como configurar e executar a aplicação Zoppy, que consiste em uma API back-end construída com NestJS e um painel front-end desenvolvido com Angular.
+Este documento fornece instruções sobre como configurar e executar a aplicação Zoppy, composta por uma API back-end em NestJS e um painel front-end em Angular, **orquestrados via Docker Compose**.
+
+---
 
 ## Estrutura do Repositório
 
@@ -9,80 +11,49 @@ O repositório está organizado em dois diretórios principais:
 - **back-end**: API NestJS para gerenciamento de clientes e produtos
 - **front-end**: Aplicação Angular que fornece a interface do usuário
 
+---
+
 ## Pré-requisitos
 
-- Node.js (versão 16 ou superior)
-- Gerenciador de pacotes npm ou yarn
-- Banco de dados PostgreSQL (já configurado no aplicativo)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-## Configuração do Back-End
+---
 
-O back-end é uma aplicação NestJS que se conecta a um banco de dados PostgreSQL hospedado no Supabase.
+## Como Executar
 
-### Instalação
-
-```bash
-cd back-end
-npm install
-```
-
-### clone o arquivo .env.example
-
-Clone o arquivo `.env.example` e retire o `.example`
-
-### Executando a API
-
-Para modo de desenvolvimento com recarregamento automático:
+Execute a aplicação com o seguinte comando:
 
 ```bash
-npm run start:dev
+docker-compose up --build
 ```
 
-Para modo de produção:
+Isso irá:
+
+- Construir e iniciar o back-end (NestJS)
+- Construir e iniciar o front-end (Angular)
+- Subir o banco de dados PostgreSQL com persistência local
+
+---
+
+## Acessos Locais
+
+- **API (NestJS)**: [http://localhost:3000/api](http://localhost:3000/api)
+- **Swagger (Documentação da API)**: [http://localhost:3000/docs](http://localhost:3000/docs)
+- **Front-End (Angular)**: [http://localhost:4200](http://localhost:4200)
+
+---
+
+## Configuração de Variáveis de Ambiente
+
+Antes de executar o Docker Compose, copie os arquivos de exemplo de variáveis de ambiente:
 
 ```bash
-npm run build
-npm run start:prod
+cp back-end/.env.example back-end/.env
+cp front-end/.env.example front-end/.env
 ```
 
-A API estará disponível em `http://localhost:3000/api`.
-
-### Documentação da API
-
-A documentação Swagger estará disponível em `http://localhost:3000/docs` quando o servidor estiver em execução.
-
-## Configuração do Front-End
-
-O front-end é uma aplicação Angular que fornece a interface para o gerenciamento de clientes e produtos.
-
-### Instalação
-
-```bash
-cd front-end
-npm install
-```
-
-### Executando a Aplicação
-
-```bash
-npm start
-```
-
-ou
-
-```bash
-ng serve
-```
-
-A aplicação estará disponível em `http://localhost:4200`.
-
-### Build para Produção
-
-```bash
-npm run build
-```
-
-Isso criará os arquivos otimizados de produção no diretório `dist/`.
+---
 
 ## Funcionalidades
 
@@ -102,18 +73,41 @@ Isso criará os arquivos otimizados de produção no diretório `dist/`.
 - Editar produtos existentes
 - Excluir produtos
 
+---
+
 ## Banco de Dados
 
-A aplicação utiliza um banco de dados PostgreSQL hospedado no Supabase. Os detalhes de conexão já estão configurados em `back-end/src/app.module.ts`.
+- A aplicação utiliza PostgreSQL, iniciado automaticamente via Docker
+- Os dados são persistidos no volume `zoppy_pgdata`
+
+---
 
 ## Estrutura do Projeto
 
 ### Back-End
 
-- **src/modules/clientes**: Endpoints da API e lógica para gerenciamento de clientes
-- **src/modules/produtos**: Endpoints da API e lógica para gerenciamento de produtos
+- `src/modules/clientes`: Endpoints da API e lógica para gerenciamento de clientes
+- `src/modules/produtos`: Endpoints da API e lógica para gerenciamento de produtos
 
 ### Front-End
 
-- **src/app/features/clientes**: Componentes e serviços para gerenciamento de clientes
-- **src/app/features/produtos**: Componentes e serviços para gerenciamento de produtos
+- `src/app/features/clientes`: Componentes e serviços para gerenciamento de clientes
+- `src/app/features/produtos`: Componentes e serviços para gerenciamento de produtos
+
+---
+
+## Parar a Aplicação
+
+Para parar os contêineres:
+
+```bash
+docker-compose down
+```
+
+Para parar e remover volumes e redes:
+
+```bash
+docker-compose down -v
+```
+
+---
